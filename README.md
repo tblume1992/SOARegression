@@ -8,13 +8,7 @@ To acheive this there is a 2 step process:
 1. Fit a basic linear regression and get the coefficients 
 2. Do an optimization problem to minimize the squared differences of the coefficients with the constraint that the fitted errors are 0. 
 
-Let $\mathbf{X} \in \mathbb{R}^{n \times p}$ be the design matrix, $\mathbf{y} \in \mathbb{R}^n$ the target vector, and $\mathbf{\beta}_0$ the coefficients from the initial fit. We aim to adjust the coefficients $\mathbf{\beta}$ to minimize: $$ \min_{\mathbf{\beta}} \quad \| \mathbf{\beta} - \mathbf{\beta}_0 \|_2^2 $$ Subject to: $$ \mathbf{y} - \mathbf{X} \mathbf{\beta} = \mathbf{0} $$
-
-
-### Explanation
-- **Objective Function**: The term $\| \mathbf{\beta} - \mathbf{\beta}_0 \|_2^2$ represents the squared difference between the adjusted coefficients $\mathbf{\beta}$ and the original coefficients $\mathbf{\beta}_0$. This is what we aim to minimize.
-- **Constraint**: The equality constraint $\mathbf{y} - \mathbf{X} \mathbf{\beta} = \mathbf{0}$ ensures that the fitted errors are zero, i.e., the adjusted model perfectly predicts the target values $\mathbf{y}$.
-
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/soar_latex.png?raw=true "Output 1")
 
 
 A regularization parameter is introduced to control how tight the fit is which is just a simple shrinkage applied to the coefficients.
@@ -60,7 +54,7 @@ plt.plot(predictions, label='OLS')
 plt.legend()
 plt.show()
 ```
-    
+ ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/soar_simple.png?raw=true "Output 1")   
 
 ```
 import pandas as pd
@@ -95,14 +89,17 @@ predictions = model.insample_predict(X, use_optimized=True)
 
 # Plot coefficients for a specific sample
 model.plot_coefficients(sample_index=10)
+```
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/coef_change.png?raw=true "Output 1")
 
+```
 plt.plot(model.insample_predict(X, use_optimized=False), linestyle='dashed', alpha=.5, label='No optimization')
 plt.plot(model.insample_predict(X, use_optimized=True), linestyle='dashed', alpha=.5, label='With optimization')
 plt.plot(y, alpha=.5, label='Actual')
 plt.legend()
 plt.show()
 ```
-
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/ap_example.png?raw=true "Output 1")
 ```
 model = SOAR()
 model.fit(X, y)
@@ -123,7 +120,7 @@ plt.plot(y, alpha=.5, label='Actual')
 plt.legend()
 plt.show()
 ```
-
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/weighted_example.png?raw=true "Output 1")
 ## Regularization 
 ```
 import seaborn as sns 
@@ -143,7 +140,7 @@ plt.plot(y, alpha=.5, label='Actual')
 plt.legend()
 plt.show()
 ```
-
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/regularization.png?raw=true "Output 1")
 
 # A little more complicated of an example
 ```
@@ -187,6 +184,7 @@ plt.title('Synthetic Time Series with Trend Changepoints')
 plt.legend()
 plt.show()
 ```
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/complicated_series.png?raw=true "Output 1")
 ## Taking a look at the sample specific models
 ```
 time = pd.DataFrame(time)
@@ -213,6 +211,7 @@ plt.ylim(0, 50)
 plt.legend()
 plt.show()
 ```
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/complicated_universe.png?raw=true "Output 1")
 ## Constraining what column is optimized 
 ```
 time = pd.DataFrame(time)
@@ -234,3 +233,4 @@ plt.ylim(0, 50)
 plt.legend()
 plt.show()
 ```
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/frozen_universe.png?raw=true "Output 1")
