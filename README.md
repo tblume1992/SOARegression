@@ -119,7 +119,8 @@ Optimized will perfectly fit (by design).
 plt.plot(model.sample_entropy())
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/entropy.png?raw=true "Output 1")
-Here entropy isn't a true definition of entropy but it is the best way to describe it. We deal with some intercept endpoint issues but besides that you can see the residuals be reflecting in the differences of the cofficients. But just because a residual is large doesn't mean it is difficult to fit it with minimal changes to coefficients.
+
+Here entropy isn't a true definition of entropy but it is the best way to describe it. We deal with some intercept endpoint issues but besides that you can see the residuals be reflected in the differences of the cofficients. But just because a residual is large doesn't mean it is difficult to fit it with minimal changes to coefficients.
 
 
 # Assign custom coefficients based on logic applied to optimized coefficients
@@ -144,7 +145,7 @@ plt.legend()
 plt.show()
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/weighted_example.png?raw=true "Output 1")
-## Regularization 
+# Regularization 
 We can apply a basic shrinkage to the coefficients 0 <= regularization <= 1
 ```
 import seaborn as sns 
@@ -209,7 +210,7 @@ plt.legend()
 plt.show()
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/complicated_series.png?raw=true "Output 1")
-## Taking a look at the sample specific models
+# Taking a look at the sample specific models
 ```
 time = pd.DataFrame(time)
 time_series = time_series - time_series[0]
@@ -236,7 +237,7 @@ plt.legend()
 plt.show()
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/complicated_universe.png?raw=true "Output 1")
-## Constraining what column is optimized 
+# Constraining what column is optimized 
 We can specify NOT to optimize certain columns, here we will constrain the trend to not change which means it will only adjust the intercept term.
 ```
 time = pd.DataFrame(time)
