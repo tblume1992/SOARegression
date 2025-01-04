@@ -22,7 +22,10 @@ Time series coefficient weight scheme like a moving average of the last n sample
 ## Further Enhancements 
 I want to add in the coefficient standard errors into the optimization so it is less about absolute magnitude changes and more about minimizing the 'energy'/'entropy' in the system while perfectly fitting.
  
-
+# Pip install
+```
+pip install soaregression
+```
 
 # A Simple Example
 ```
@@ -31,6 +34,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style('darkgrid')
+from SOARegression.model import SOAR
 
 
 X = pd.DataFrame([1,2,3,4])
