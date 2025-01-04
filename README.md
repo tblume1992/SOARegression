@@ -114,6 +114,14 @@ plt.show()
 
 Optimized will perfectly fit (by design).
 
+# Assessing the sample 'entropy'
+```
+plt.plot(model.sample_entropy())
+```
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/entropy.png?raw=true "Output 1")
+Here entropy isn't a true definition of entropy but it is the best way to describe it. We deal with some intercept endpoint issues but besides that you can see the residuals be reflecting in the differences of the cofficients. But just because a residual is large doesn't mean it is difficult to fit it with minimal changes to coefficients.
+
+
 # Assign custom coefficients based on logic applied to optimized coefficients
 Here we will overwrite the optimized coefficients in the class to be equal to the coefficients for the last year, this will give you a fit that works well for those last 12 values.
 ```
