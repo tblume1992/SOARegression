@@ -63,6 +63,15 @@ After optimizing each sample has it's own linear model that goes through it, but
 
 Obviously there will be some issues around the intercept but the intercept is fit by default and it the FIRST column in the coefficients.
 
+`print(optimized_coefficients)`
+
+```
+[[0.6        2.4       ]
+ [0.48       2.26      ]
+ [0.46       2.18      ]
+ [0.51764706 2.37058824]]
+```
+
 # Taking a look at the Airline Passengers with a simple trend + dummy seasonality model
 ```
 import pandas as pd
