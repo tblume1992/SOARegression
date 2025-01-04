@@ -8,7 +8,7 @@ To acheive this there is a 2 step process:
 1. Fit a basic linear regression and get the coefficients 
 2. Do an optimization problem to minimize the squared differences of the coefficients with the constraint that the fitted errors are 0. 
 
-![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/soar_latex.png?raw=true "Output 1")
+![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/soar_latex.PNG?raw=true "Output 1")
 
 
 A regularization parameter is introduced to control how tight the fit is which is just a simple shrinkage applied to the coefficients.
@@ -24,7 +24,7 @@ I want to add in the coefficient standard errors into the optimization so it is 
  
 
 
-
+# A Simple Example
 ```
 import pandas as pd 
 import numpy as np 
@@ -55,7 +55,11 @@ plt.legend()
 plt.show()
 ```
  ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/soar_simple.png?raw=true "Output 1")   
+After optimizing each sample has it's own linear model that goes through it, but is the most 'similar' to the normal regression line that is fitted. 
 
+Obviously there will be some issues around the intercept but the intercept is fit by default and it the FIRST column in the coefficients.
+
+# Taking a look at the Airline Passengers with a simple trend + dummy seasonality model
 ```
 import pandas as pd
 import numpy as np 
@@ -92,6 +96,9 @@ model.plot_coefficients(sample_index=10)
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/coef_change.png?raw=true "Output 1")
 
+Here we plot the original coefficients vs the optimized ones for a given sample index.
+
+Let's take a look at an optimized vs non-optimize fit:
 ```
 plt.plot(model.insample_predict(X, use_optimized=False), linestyle='dashed', alpha=.5, label='No optimization')
 plt.plot(model.insample_predict(X, use_optimized=True), linestyle='dashed', alpha=.5, label='With optimization')
@@ -100,6 +107,11 @@ plt.legend()
 plt.show()
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/ap_example.png?raw=true "Output 1")
+
+Optimized will perfectly fit (by design).
+
+# Assign custom coefficients based on logic applied to optimized coefficients
+Here we will overwrite the optimized coefficients in the class to be equal to the coefficients for the last year, this will give you a fit that works well for those last 12 values.
 ```
 model = SOAR()
 model.fit(X, y)
@@ -111,7 +123,6 @@ actual_coefs = model.coefficients
 optimized_coefs = model.optimized_coefficients_per_sample
 predictions = model.insample_predict(X, use_optimized=True)
 mean_coefs = np.resize(optimized_coefs[-12:, :], (len(X), 13))
-mean_coefs = mean_coefs
 # overwrite coefficients after getting our weighted average
 model.optimized_coefficients_per_sample = mean_coefs
 plt.plot(model.insample_predict(X, use_optimized=False), linestyle='dashed', alpha=.5, label='No optimization')
@@ -122,6 +133,7 @@ plt.show()
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/weighted_example.png?raw=true "Output 1")
 ## Regularization 
+We can apply a basic shrinkage to the coefficients 0 <= regularization <= 1
 ```
 import seaborn as sns 
 sns.set_style('darkgrid')
@@ -213,6 +225,7 @@ plt.show()
 ```
 ![alt text](https://github.com/tblume1992/SOARegression/blob/main/static/complicated_universe.png?raw=true "Output 1")
 ## Constraining what column is optimized 
+We can specify NOT to optimize certain columns, here we will constrain the trend to not change which means it will only adjust the intercept term.
 ```
 time = pd.DataFrame(time)
 time_series = time_series - time_series[0]
