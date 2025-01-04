@@ -8,21 +8,16 @@ To acheive this there is a 2 step process:
 1. Fit a basic linear regression and get the coefficients 
 2. Do an optimization problem to minimize the squared differences of the coefficients with the constraint that the fitted errors are 0. 
 
-\[
-\begin{aligned}
-& \text{Let } \mathbf{X} \in \mathbb{R}^{n \times p} \text{ be the design matrix, } \mathbf{y} \in \mathbb{R}^n \text{ the target vector, and } \mathbf{\beta}_0 \text{ the coefficients from the initial fit.} \\
-& \text{We aim to adjust the coefficients } \mathbf{\beta} \text{ to minimize:} \\
-& \min_{\mathbf{\beta}} \quad \| \mathbf{\beta} - \mathbf{\beta}_0 \|_2^2 \\
-& \text{Subject to: } \mathbf{y} - \mathbf{X} \mathbf{\beta} = \mathbf{0}
-\end{aligned}
-\]
+Let $\mathbf{X} \in \mathbb{R}^{n \times p}$ be the design matrix, $\mathbf{y} \in \mathbb{R}^n$ the target vector, and $\mathbf{\beta}_0$ the coefficients from the initial fit. We aim to adjust the coefficients $\mathbf{\beta}$ to minimize: $$ \min_{\mathbf{\beta}} \quad \| \mathbf{\beta} - \mathbf{\beta}_0 \|_2^2 $$ Subject to: $$ \mathbf{y} - \mathbf{X} \mathbf{\beta} = \mathbf{0} $$
+
 
 ### Explanation
-- **Objective Function**: The term \(\| \mathbf{\beta} - \mathbf{\beta}_0 \|_2^2\) represents the squared difference between the adjusted coefficients \(\mathbf{\beta}\) and the original coefficients \(\mathbf{\beta}_0\). This is what we aim to minimize.
-- **Constraint**: The equality constraint \(\mathbf{y} - \mathbf{X} \mathbf{\beta} = \mathbf{0}\) ensures that the fitted errors are zero, i.e., the adjusted model perfectly predicts the target values \(\mathbf{y}\).
+- **Objective Function**: The term $\| \mathbf{\beta} - \mathbf{\beta}_0 \|_2^2$ represents the squared difference between the adjusted coefficients $\mathbf{\beta}$ and the original coefficients $\mathbf{\beta}_0$. This is what we aim to minimize.
+- **Constraint**: The equality constraint $\mathbf{y} - \mathbf{X} \mathbf{\beta} = \mathbf{0}$ ensures that the fitted errors are zero, i.e., the adjusted model perfectly predicts the target values $\mathbf{y}$.
 
 
-A regularization parameter is introduced to control how tight the fit is.
+
+A regularization parameter is introduced to control how tight the fit is which is just a simple shrinkage applied to the coefficients.
 
 ## Possible use cases
 Time series coefficient weight scheme like a moving average of the last n samples' coefficients 
